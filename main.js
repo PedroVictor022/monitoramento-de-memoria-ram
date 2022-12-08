@@ -1,5 +1,7 @@
-const { app, BrowserWindow, Tray, Menu } = require("electron");
+const { app, BrowserWindow, Tray, Menu, nativeImage } = require("electron");
 const path = require("path");
+
+let tray;
 
 // Load this index.html
 const createWindow = () => {
@@ -12,27 +14,36 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
-  
-
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 
+  // const icon = nativeImage.createFromPath("assets/power-bi.svg");
+  tray = new Tray(icon);
+  // Icons in navbar w11
   const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Item1',
-      type: 'radio',
-      checked: true
-    }
-  ])
+    { label: "Item1", type: "radio", checked: true },
+  ]);
 
-  // ! Bug in line below
-  // const tray = new Tray(path.resolve(__dirname, "assets", "power-bi.svg"));
-  // tray.setToolTip('This is my application');
-  // tray.setContextMenu(contextMenu);
+  tray.setContextMenu(contextMenu);
+  tray.setToolTip("This is my app");
+  tray.setTitle("This is my title");
 
+  app.do;
 });
+
+// Custom app from taskbar
+app.setUserTasks([
+  {
+    program: process.execPath,
+    arguments: "--new-window",
+    iconPath: process.execPath,
+    iconIndex: 0,
+    title: "New Window teste 1",
+    description: "TEST create a new window",
+  },
+]);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
