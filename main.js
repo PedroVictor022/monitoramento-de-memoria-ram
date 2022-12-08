@@ -1,38 +1,39 @@
-const path =  require('path');
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Tray, Menu } = require("electron");
+const path = require("path");
 
-const createNewWindow = () => {
-  const window = new BrowserWindow({
-    width: 750,
-    height: 650,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+// Load this index.html
+const createWindow = () => {
+  const win = new BrowserWindow({
+    width: 700,
+    height: 600,
+    webPreferences: path.join(__dirname, "preload.js"),
   });
-  window.loadFile("index.html");
-
-  //! BUG DOWN
-  // window.addEventListener("DOMContentLoaded", () => {
-  //   const replaceText = (selector, text) => {
-  //     const el = document.getElementById(selector);
-  //     if (el) el.innerText = text;
-  //   };
-  //   for (const dependency of ["chrome", "node", "electron"]) {
-  //     replaceText(`${dependency}-version`, process.versions[dependency]);
-  //   }
-  // });
+  win.loadFile("index.html");
 };
 
 app.whenReady().then(() => {
-  createNewWindow();
+  
 
-  app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-      app.quit();
-    }
-
-    if (BrowserWindow.getAllWindows().length === 0) createNewWindow();
+  createWindow();
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Item1',
+      type: 'radio',
+      checked: true
+    }
+  ])
+
+  // ! Bug in line below
+  // const tray = new Tray(path.resolve(__dirname, "assets", "power-bi.svg"));
+  // tray.setToolTip('This is my application');
+  // tray.setContextMenu(contextMenu);
+
 });
 
-console.log(`Hello from Electron`);
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
