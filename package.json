@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "electron/main.js",
+  "type": "commonjs",
   "scripts": {
     "start": "electron ."
   },

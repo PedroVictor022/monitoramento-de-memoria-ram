@@ -1,4 +1,6 @@
 const { app, BrowserWindow, Tray, Menu, nativeImage } = require("electron");
+const pup = require('puppeteer');
+
 const path = require("path");
 
 let tray;
@@ -8,9 +10,13 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 700,
     height: 600,
-    resizable: false,
+    // resizable: false,
     frame: true,
-    webPreferences: path.join(__dirname, "preload.js"),
+    webPreferences: {
+      preload:  path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
+      nodeIntegrationInWorker: true
+    },
   });
   win.loadFile("index.html");
 };
@@ -48,3 +54,33 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+// Target: 'https://www.fctables.com/teams/real-madrid-192583/'
+let url = 'https://www.fctables.com/teams/real-madrid-192583/';
+const saveData = [];
+const log = (text) => console.log(text);
+
+(
+  async() => {
+    // init browser
+    const browser = await pup.launch({
+      headless: true,
+    });
+    const page = await browser.newPage();
+
+    log("Browser starts");
+    await page.goto(url);
+
+    await Promise.all([
+      page.waitForSelector()
+    ])
+
+    const title = await page.$(".box-width > h1")
+    console.log(title);
+
+    setInterval(() => {
+      browser.close();
+    }, 3000)
+
+  }
+)();
