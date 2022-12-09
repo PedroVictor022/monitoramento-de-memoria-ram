@@ -1,40 +1,30 @@
-const { app, BrowserWindow, Tray, Menu } = require("electron");
+const { app, BrowserWindow, Tray, Menu, ipcMain, globalShortcut } = require("electron");
 
-const path = require("path");
+let win;
 
-let tray = null;
-
-// Load this index.html
-const createWindow = () => {
+function createWindow() {
   const win = new BrowserWindow({
     width: 700,
     height: 600,
-    // resizable: false,
-    frame: true,
+    transparent: false,
+    alwaysOnTop: true,
     webPreferences: {
+      webSecurity: false,
       nodeIntegration: true,
       contextIsolation: false,
-      preload:  path.join(__dirname, "preload.js"),
+      nodeIntegrationInSubFrames: true,
+      devTools: true
     },
+    
   });
-  win.loadFile("index.html");
-};
+  win.loadFile('index.html');
+}
 
+app.whenReady()
+  .then(createWindow)
 
-app.whenReady().then(() => {
-  createWindow();
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-
-  tray = new Tray('/assets/computer.png')
-  const contextMenu = Menu.buildFromTemplate([
-     { label: 'Item1', type: 'radio' },
-  ])
-
-  tray.setToolTip('This is my application');
-  tray.setContextMenu(contextMenu);
-
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
 app.on("window-all-closed", () => {
