@@ -1,16 +1,39 @@
 <!DOCTYPE html>
+
 <head>
-  <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Statistic Teams</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+  </style> -->
+
+  <link rel="stylesheet" href="./src/styles/global.css">
+  <link rel="stylesheet" href="./src/styles/index.css">
+
+  <title>Statistic Teams</title>
 </head>
+
 <body>
-  <h1>My First app use Electron JS</h1>
+  <div class="page">
+    
+    <div class="header">
+      <div class="header_content">
+        <h1>Statistics Teams</h1>
+        <p>Your app Statistics</p>
+      </div>
+      <input type="text" id="search" class="search">
+    </div>
+
+    <div class="main">
+
+    </div>
+
+  </div>
+
+  <script src="./src/web/services/scraper.js"></script>
 </body>
+
 </html>
