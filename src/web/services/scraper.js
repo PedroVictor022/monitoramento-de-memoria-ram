@@ -1,20 +1,28 @@
-// const pup = require('puppeteer');
-// Target: 'https://www.fctables.com/teams/real-madrid-192583/'
+const pup = require('puppeteer');
 
-// let url = 'https://www.fctables.com/teams/real-madrid-192583/';
-// const saveData = [];
-// const log = (text) => console.log(text);
+(async() => {
+  const statsData = [];
+  const browser = await pup.launch({
+    headless: true,
+    defaultViewport: false,
+  })
 
-// (
-//   async() => {
-//     // init browser
-//     const browser = await pup.launch({
-//       headless: false
-//     });
-//     const page = await browser.newPage();
+  const page = await browser.newPage();
+  console.log('Browser start');
 
-//     log("Browser starts");
-//     await page.goto(url)
+  await page.goto("https://www.fctables.com/teams/atletico-mg-180615/");
 
-//   }
-// )();
+  const teamInfo = await page.$$("#team-info");
+
+  for(const info of teamInfo) {
+    try {
+      const allInfos = await page.evaluate((el) => el.innerText, info);
+      statsData.push(allInfos);
+    } catch(err) {
+      return `Error - ${err}`;
+    }
+  }
+
+  console.log(statsData);
+
+})();

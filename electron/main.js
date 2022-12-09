@@ -1,6 +1,5 @@
 const { app, BrowserWindow, Tray, Menu } = require("electron");
 
-const pup = require('puppeteer');
 const path = require("path");
 
 let tray = null;
@@ -13,13 +12,14 @@ const createWindow = () => {
     // resizable: false,
     frame: true,
     webPreferences: {
-      preload:  path.join(__dirname, "preload.js"),
       nodeIntegration: true,
-      nodeIntegrationInWorker: true
+      contextIsolation: false,
+      preload:  path.join(__dirname, "preload.js"),
     },
   });
   win.loadFile("index.html");
 };
+
 
 app.whenReady().then(() => {
   createWindow();
@@ -37,35 +37,7 @@ app.whenReady().then(() => {
 
 });
 
-
-
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
-(async() => {
-  const statsData = [];
-  const browser = await pup.launch({
-    headless: true,
-    defaultViewport: false,
-  })
-
-  const page = await browser.newPage();
-  console.log('Browser start');
-
-  await page.goto("https://www.fctables.com/teams/atletico-mg-180615/");
-
-  const teamInfo = await page.$$("#team-info");
-
-  for(const info of teamInfo) {
-    try {
-      const allInfos = await page.evaluate((el) => el.innerText, info);
-      statsData.push(allInfos);
-    } catch(err) {
-      return `Error - ${err}`;
-    }
-  }
-
-  console.log(statsData);
-
-})();
