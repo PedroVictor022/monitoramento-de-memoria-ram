@@ -32,7 +32,37 @@
   justify-items: center;
   gap:1rem;
 }
-
+.main-gp {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .main-gp > p {
+  flex-wrap: nowrap;
   font-size: 18px;
+  font-weight: 800;
+}
+#os {
+  color: #fefefe;
+  font-size: 16px;
+  font-weight: 800;
+}
+#arch {
+  color: #fefefe;
+  font-size: 16px;
+  font-weight: 800;
+}
+#totalRAM {
+  color: #fefefe;
+  font-size: 14px;
+  font-weight: bolder;
+}
+#freeRAM {
+  color: yellow;
+  font-size: 14px;
+}
+#memoryUsed {
+  color: #01ec48;
+  font-size: 14px;
+  font-weight: 800;
 }

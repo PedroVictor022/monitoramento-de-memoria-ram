@@ -4,9 +4,10 @@ let win;
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 700,
-    height: 600,
-    transparent: false,
+    width: 280,
+    height: 300,
+    // transparent: true,
+    resizable: false,
     alwaysOnTop: true,
     webPreferences: {
       webSecurity: false,

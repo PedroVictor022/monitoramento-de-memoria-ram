@@ -26,21 +26,18 @@ function monitoringSystem(time) {
     let stats = {
       OS: platform(),
       Arch: arch(),
-      freeRAM: `FreeRAM - ${parseInt(freeRam)}GB`,
-      totalRAM: `TotalRAM - ${parseInt(totalRam)}GB`,
-      inUse: `RAM used ${usoM}%`
+      freeRAM: `${(parseInt(freeRam) / 1024 /1024 / 1024 ).toFixed(2)} GB`,
+      totalRAM: `${(parseInt(totalRam) / 1024 / 1024/ 1024).toFixed(0)} GB`,
+      inUse: `${usoM}%`
     }
-
-    console.clear()
-    console.log(stats);
 
     elPlataform.innerText = stats.OS;
     elArchiteture.innerText = stats.Arch;
-    elTotalRAM.innerText = ((totalRam / totalRam) * 100).toFixed(2);
+    elTotalRAM.innerText = stats.totalRAM;
     elFreeRAM.innerText = stats.freeRAM;
     elMemoryUsed.innerText = stats.inUse;
 
-  }, 500)
+  }, 00)
 }
 
 monitoringSystem();
