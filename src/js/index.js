@@ -1,5 +1,6 @@
 // Monitoring process
 const os = require('os');
+const { start } = require('repl');
 
 /**
  * User inform time update
@@ -8,12 +9,18 @@ const os = require('os');
 // REQUIREMENTS
 const { freemem, totalmem, platform, arch } = os;
 
+// Get HTML elements
+const elPlataform = document.getElementById('os');
+const elArchiteture = document.getElementById('arch');
+const elTotalRAM = document.getElementById('totalRAM');
+const elFreeRAM = document.getElementById('freeRAM')
+const elMemoryUsed = document.getElementById('memoryUsed')
+
 function monitoringSystem(time) {
   setInterval(() => {
     const totalRam = totalmem();
     const freeRam = freemem();
-
-    const inUse = ((freeRam / totalRam) * 100).toFixed(2);
+    const usoM = (((totalRam / totalRam) * 100) - ((freeRam / totalRam) * 100)).toFixed(2);
 
     // Other stats OS
     let stats = {
@@ -21,12 +28,19 @@ function monitoringSystem(time) {
       Arch: arch(),
       freeRAM: `FreeRAM - ${parseInt(freeRam)}GB`,
       totalRAM: `TotalRAM - ${parseInt(totalRam)}GB`,
-      inUse: `RAM used ${inUse}%`
+      inUse: `RAM used ${usoM}%`
     }
 
     console.clear()
     console.log(stats);
-  }, 3000)
+
+    elPlataform.innerText = stats.OS;
+    elArchiteture.innerText = stats.Arch;
+    elTotalRAM.innerText = ((totalRam / totalRam) * 100).toFixed(2);
+    elFreeRAM.innerText = stats.freeRAM;
+    elMemoryUsed.innerText = stats.inUse;
+
+  }, 500)
 }
 
 monitoringSystem();
