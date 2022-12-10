@@ -12,31 +12,39 @@
 
 <body>
   <div class="page">
-
     <div class="header">
-      <div class="header_content">
-        <h1>Statistics Teams</h1>
-        <p>Your app Statistics</p>
-      </div>
-      <input type="text" id="search" class="search">
+      <h1>Sym</h1>
+      <span> - </span>
+      <p>System Monitory</p>
     </div>
 
     <div class="main">
-      <div class="main_content">
-        <h2 class="team-name">Nome do time</h2>
-        <p>Estatisticas principais</p>
-        <ul>
-          <li>Total de Gols na temporada</li>
-          <li>Artilheiro do time</li>
-          <li>Total de vitorias</li>
-          <li>Total de empates</li>
-          <li>Total de derrotas</li>
-        </ul>
+      <div class="pc_info">
+        <div class="main-gp">
+          <p>Plataform -</p>
+          <span id="os"></span>
+        </div>
+        <div class="main-gp">
+          <p>Architeture -</p>
+          <span id="arch"></span>
+        </div>
+        <div class="main-gp">
+          <p>Total RAM -</p>
+          <span id="totalRAM"></span>
+        </div>
+        <div class="main-gp">
+          <p>Free RAM -</p>
+          <span id="freeRAM"></span>
+        </div>
+        <div class="main-gp">
+          <p>Memory used -</p>
+          <span id="memoryUsed"></span>
+        </div>
       </div>
     </div>
 
   </div>
-  <script src="./src/web/services/scraper.js"></script>
+  <script src="./src/js/index.js"></script>
 </body>
 
 </html>

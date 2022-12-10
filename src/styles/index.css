@@ -8,29 +8,31 @@
 
 /* Header config */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 1rem;
 
-  margin-bottom: 1rem;
+ padding: 1rem;
 
-  background-color: rgb(24, 24, 24);
-
-}
-.header_content {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-.header_content > p {
-  font-size:14px;
-}
-.search {
-  padding: 0.2rem;
-  border: none;
-  border-radius: 2px;
+ background-color: #141414;
 }
 /* ========= Header =========*/
+
+.main {
+  width: 100%;
+}
+.pc_info {
+  margin: 2rem auto;
+
+  width: 200px;
+  display: flex;
+  flex-direction:column;
+  align-items: flex-start;
+  justify-items: center;
+  gap:1rem;
+}
+
+.main-gp > p {
+  font-size: 18px;
+}

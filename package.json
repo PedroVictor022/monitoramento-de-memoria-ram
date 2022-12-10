@@ -12,8 +12,5 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^22.0.0"
-  },
-  "dependencies": {
-    "puppeteer": "^19.4.0"
   }
 }
