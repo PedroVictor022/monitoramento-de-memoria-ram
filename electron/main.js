@@ -1,26 +1,30 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, globalShortcut } = require("electron");
+const { app, BrowserWindow } = require("electron");
+const path = require('path');
 
 let win;
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 280,
-    height: 300,
+    height: 250,
     // transparent: true,
     resizable: false,
     alwaysOnTop: true,
+    icon: path.join(__dirname, '/computer.ico'),
+    autoHideMenuBar: true,
     webPreferences: {
       webSecurity: false,
       nodeIntegration: true,
       contextIsolation: false,
       nodeIntegrationInSubFrames: true,
-      devTools: true
+      devTools: false
     },
     
   });
 
   win.loadFile('index.html');
 }
+
 
 app.whenReady()
   .then(createWindow)
