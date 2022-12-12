@@ -1,16 +1,44 @@
 {
   "name": "statistic-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Monitoring memory",
   "main": "electron/main.js",
   "type": "commonjs",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "dist": "electron-builder",
+    "electron:package:win": "npm build && electron-builder -w -c.extraMetada.main=build/electron.js",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [],
-  "author": "",
+  "author": "Pedro Victor",
   "license": "ISC",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
     "electron": "^22.0.0"
+  },
+  "build": {
+    "appId": "myapp.id",
+    "productName": "Monitoring Memory",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "target": "NSIS",
+    "directory": {
+      "output": "build"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
